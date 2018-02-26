@@ -11,11 +11,11 @@ def get_response(request):
 		return 'Hello mister!'"\n"'You are:'+ line3
 	elif word == '/media/':
 		fls=['<a href="'+i+'">'+i+'</a><br/>' for i in listdir('../files/')]
-		return 'HTTP/1.1 200 OK\n\n'+'\n'.join(fls)
+		return '\n'.join(fls)
 	elif word[:7]=='/media/' and word!='/media/':                             
-        	file_path=word[7:]                                                   
+        	fi=word[7:]                                                   
         	try: 
-            		with open('../files/'+file_path) as f:                          
+            		with open('../files/'+fi) as f:                          
                 		return f.read()                        
     		except Exception as e:                                              
 			return 'File not found'
