@@ -3,8 +3,18 @@ import socket
 
 
 def get_response(request):
-
-    return 'WRITE YOU RESPONSE HERE\n'
+	line = request.split('\n')[0]
+	word = line.split()[1]
+	line3 = request.split('\n')[2]
+	#name = line3.split()[1:7]
+	if word == '/':
+		return 'Hello mister!'"\n"'You are:'+ line3
+	elif word == '/media/':
+		return request
+	elif word == '/test/':
+		return request.split('\n')[1] + word
+	else :
+    		return 'Page not found'
 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -25,3 +35,4 @@ while 1:
         print 'Stopped'
         server_socket.close()  #
         exit()
+#~/example/technotrack-web1-spring-2018/lesson1/server
