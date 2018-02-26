@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import socket
-
+from os import listdir 
 
 def get_response(request):
 	line = request.split('\n')[0]
@@ -10,29 +10,37 @@ def get_response(request):
 	if word == '/':
 		return 'Hello mister!'"\n"'You are:'+ line3
 	elif word == '/media/':
-		return request
+		fls=['<a href="'+i+'">'+i+'</a><br/>' for i in listdir('../files/')]
+		return 'HTTP/1.1 200 OK\n\n'+'\n'.join(fls)
+	elif word[:7]=='/media/' and word!='/media/':                             
+        	file_path=word[7:]                                                   
+        	try: 
+            		with open('../files/'+file_path) as f:                          
+                		return f.read()                        
+    		except Exception as e:                                              
+			return 'File not found'
 	elif word == '/test/':
-		return request.split('\n')[1] + word
+		return request
 	else :
     		return 'Page not found'
 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server_socket.bind(('localhost', 8000))  #
-server_socket.listen(0)  #
+server_socket.bind(('localhost', 8000))  #подсоединяемся к порту 8000
+server_socket.listen(0)  #слушаем порт
 
 print 'Started'
 
 while 1:
     try:
         (client_socket, address) = server_socket.accept()
-        print 'Got new client', client_socket.getsockname()  #
-        request_string = client_socket.recv(2048)  #
-        client_socket.send(get_response(request_string))  #
+        print 'Got new client', client_socket.getsockname()  #получаем данные о новом пользователе
+        request_string = client_socket.recv(2048)  #записываем данные в request
+        client_socket.send(get_response(request_string))  #получаем ответ
         client_socket.close()
-    except KeyboardInterrupt:  #
+    except KeyboardInterrupt:  
         print 'Stopped'
-        server_socket.close()  #
+        server_socket.close()  #останавливаем прослушку порта
         exit()
 #~/example/technotrack-web1-spring-2018/lesson1/server
