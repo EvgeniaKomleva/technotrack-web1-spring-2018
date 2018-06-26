@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Форум {% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <a href="{% url 'forum:topic_create' %}">Создать новую тему</a>
+
+    <div>
+        <form action="" method="get">
+            {{ topics_form.sort.label_tag}}{{ topics_form.sort}}
+            {% if topics_form.sort.errors %}
+                {{ topics_form.sort.errors }}
+            {% endif %}
+            {{ topics_form.search.label_tag }}{{ topics_form.search }}
+            <button type="button" class="btn btn-dark">Go</button>
+        </form>
+    </div>
+
+    <ul class="list-unstyled">
+    {% for topic in topics %}
+        <li><a href = "{% url 'forum:topic_detail' pk=topic.id %}">{{ topic.name }}</a></li>
+    {% endfor %}
+
+    <div>
+        <a href="{% url 'main_page' %}">Вернуться на главную</a>
+    </div>
+{% endblock %}

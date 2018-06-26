@@ -1,0 +1,13 @@
+
+{% extends 'core/base.html' %}
+
+{% block title %}
+    Training {{ training.name }} {{ training.id }}
+{% endblock %}
+
+{% block content %}
+    <div>Trainer: {{ training.trainer }}</div>
+    <div>{{ training.data }}</div>
+    <div>{{ training.location }}</div>
+    <a href="{% url 'trainings:training_list' %}">Все тренировки</a>
+{% endblock %}

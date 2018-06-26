@@ -1,0 +1,10 @@
+﻿{% extends "core/base.html" %}
+
+{% block title %} Главная страница{% endblock %}
+
+{% block content %}
+    <div> <a href="{% url 'forum:topic_list' %}">Форум</a> </div>
+    <div> <a href="{% url 'trainings:training_list' %}">Тренировки</a> </div>
+    <div> <a href="{% url 'login' %}">Войти</a> </div>
+    <div> <a href="{% url 'logout' %}">Выйти</a> </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    Тема {{ topics.name }}
+{% endblock %}
+
+{% block content %}
+    <div>Автор: {{ topics.author }}</div>
+    <p class="text-justify"> {{ topics.content }}</p>
+
+    <div><a href="{% url 'forum:topic_list' %}">Все темы</a> </div>
+    {% if  topics.author == user %}
+         <div><a href="{% url 'forum:topic_edit' pk=topics.id %}">Редактировать</a> </div>
+    {% endif %}
+
+{% endblock %}
